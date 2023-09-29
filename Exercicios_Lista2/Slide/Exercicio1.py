@@ -1,4 +1,3 @@
-
 try: 
     word = int(input("Insira um número: "))
 except:
