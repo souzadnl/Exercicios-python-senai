@@ -7,5 +7,8 @@ print("Hello, Jane!")
 
 print("Hello, Mike!") 
 """
+name = input("Enter your name: ")
+def hello():
+    print(f"Hello, {name}!")
 
-print("Hello, John!\nHello, Jane!\nHello, Mike!") 
+hello()
