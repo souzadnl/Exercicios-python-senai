@@ -1,0 +1,11 @@
+response = requests.get("https://deckofcardsapi.com/api/deck/new/draw/?count=52")
+
+if response.status_code == 200:
+    data = response.json()
+    print(data)
+    for i in data:
+        print(i)
+else:
+    print("Erro ao buscar informação do CEP", response.status_code)
+
+print(response.text)
