@@ -1,5 +1,4 @@
 import random
-import requests
 
 baralho = {
     "A_ouro": 1, "2_ouro": 2, "3_ouro": 3, "4_ouro": 4, "5_ouro": 5, "6_ouro": 6, "7_ouro": 7, "8_ouro": 8, "9_ouro": 9, "10_ouro": 10, "J_ouro": 10, "Q_ouro": 10, "K_ouro": 10,
@@ -9,35 +8,37 @@ baralho = {
 }
 
 class Mesa:
-    def __init__(self,cartas, pontos):
-        self.cartas = cartas
-        self.pontos = pontos
 
-    def sorteio_mao():
+    def sorteio_mao(self):
         # Eu to pegando duas cartas aleatórias da lista e jogando aqui pra dentro
         cartas_jogador = {}
+        mao_jogador = 0
         i = 0
 
         while i < 2:
-            carta_sorteada = random.choice(list(baralho.items()))
-            baralho.pop(carta_sorteada[0])
-            cartas_jogador.update({carta_sorteada})
+            carta_sorteada = random.choice(list(baralho.items()))  # Pego uma carta aleatória do baralho e chamo de carta sorteada
+            mao_jogador = mao_jogador + carta_sorteada[1]  # adiciono o valor dessa carta na mao do jogador
+            baralho.pop(carta_sorteada[0])  # retiro essa carta do baralho
+            cartas_jogador.update({carta_sorteada})  # adiciono essa carta nas cartas do jogador
             i = i + 1
 
-        print("As cartas do jogador são:")
+        print("Suas cartas são:")
         for i in cartas_jogador:
             print(i)
+        print("\nVocê tá com",mao_jogador)
+
+
         return cartas_jogador
 
-    def apresentacao():
+    def apresentacao(self):
         return "JOGUE AGORA O 21 DO SOUZA!\nO objetivo é chegar mais próximo do número 21 sem estourar\nÉ assim que se joga:\n1 - Cada jogador receberá duas cartas\n2 - O jogador escolherá se compra mais uma carta ou para\n3 - Se ambos pararem, ganha quem tiver mais próximo de 21\n4 - Se o jogador estourar ele perde\n"
 
-    def cadastro_login():
+    def cadastro_login(self):
         print("Você deseja logar ou cadastrar uma nova conta?(logar/cadastrar)")
         escolha = input()
         match (escolha.lower()):
             case "logar":
-                Mesa.logar(self=0)
+                Mesa.logar()
             case "cadastrar":
                 Mesa.cadastrar()
 
@@ -62,7 +63,7 @@ class Mesa:
             else:
                 print("Login inválido\n")
 
-    def cadastrar():
+    def cadastrar(self):
         print("Seja bem vindo a área de cadastro")
         while True:
             idade = int(input("Insira sua idade: "))
@@ -71,22 +72,27 @@ class Mesa:
                 email = input("Insira seu email: ")
                 senha = int(input("Insira sua senha: "))
 
-                user = Jogador(nome, idade, email, senha, 0, 0)
+                jogador1 = Jogador(nome, idade, email, senha)
                 print(Mesa.apresentacao_pessoal(Mesa, nome))
                 break
             else:
                 print("Vish! Este jogo só é permitido para maiores de 18\n")
 
 class Jogador:
-    def __init__(self, nome, idade, email, senha, cartas, pontos):
+
+    def __init__(self, nome, idade):
         self.nome = nome
         self.idade = idade
-        self.email = email
-        self.senha = senha
-        self.cartas = cartas
-        self.pontos = pontos
+        self.cartas = Mesa.sorteio_mao(self)
 
 
-print(Mesa.apresentacao())
-Mesa.cadastro_login()
+
+
+
+jogador1 = Jogador("Daniel", 19)
+print(jogador1.nome)
+print(jogador1.cartas)
+
+
+
 
